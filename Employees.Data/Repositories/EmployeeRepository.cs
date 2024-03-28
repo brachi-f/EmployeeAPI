@@ -39,7 +39,7 @@ namespace Employees.Data.Repositories
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
         {
-            return await _dataContext.Employees.Include(e => e.Roles).ToListAsync();
+            return await _dataContext.Employees.Include(e => e.Roles).ThenInclude(r=>r.Role).ToListAsync();
         }
 
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee emp)

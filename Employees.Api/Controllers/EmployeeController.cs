@@ -58,7 +58,7 @@ namespace Employees.Api.Controllers
             return Ok(update);
         }
         // PUT api/<EmployeeController>/5
-        [HttpPut("{id}")]
+        [HttpPut("delete/{id}")]
         public async Task<ActionResult<Employee>> Put(int id)
         {
             var emp = await _employeeService.GetEmployeeByIdAsync(id);
