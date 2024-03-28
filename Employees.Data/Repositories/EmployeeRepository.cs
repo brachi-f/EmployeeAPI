@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Employees.Data.Repositories
 {
-    internal class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly DataContext _dataContext;
         public EmployeeRepository(DataContext dataContext)

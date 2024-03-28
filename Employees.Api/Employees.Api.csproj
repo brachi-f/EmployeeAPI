@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Employees.Core\Employees.Core.csproj" />
+    <ProjectReference Include="..\Employees.Data\Employees.Data.csproj" />
+    <ProjectReference Include="..\Employees.Service\Employees.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Employees.Data\Employees.Data.csproj" />
-  </ItemGroup>
+
 
 </Project>

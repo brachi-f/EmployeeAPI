@@ -9,11 +9,11 @@ namespace Employees.Core.Repositories
 {
     public interface IRoleRepository
     {
-        IEnumerable<Role> GetRoles();
-        Role GetRole(int id);
-        Role AddRole(string name);
-        void DeleteRole(int id);
-        Role UpdateRole(int id, string name);
+        Task<IEnumerable<Role>> GetRoles();
+        Task<Role> GetRole(int id);
+        Task<Role> AddRole(string name);
+        Task DeleteRole(int id);
+        Task<Role> UpdateRole(int id, string name);
 
     }
 }
