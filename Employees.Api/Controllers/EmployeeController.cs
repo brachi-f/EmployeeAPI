@@ -30,15 +30,9 @@ namespace Employees.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> Get(int id)
         {
-            Employee emp;
-            try
-            {
-                emp = await _employeeService.GetEmployeeByIdAsync(id);
-            }
-            catch
-            {
+            var emp = await _employeeService.GetEmployeeByIdAsync(id);
+            if (emp is null)
                 return NotFound();
-            }
             return Ok(emp);
         }
 

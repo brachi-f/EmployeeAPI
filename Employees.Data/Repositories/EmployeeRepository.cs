@@ -34,12 +34,12 @@ namespace Employees.Data.Repositories
 
         public async Task<Employee> GetEmployeeByIdAsync(int id)
         {
-            return GetEmployeesAsync().Result.First(e => e.Id == id);
-                    }
+            return await _dataContext.Employees.FindAsync(id);
+        }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
         {
-            return await _dataContext.Employees.Include(e => e.Roles).ThenInclude(r=>r.Role).ToListAsync();
+            return await _dataContext.Employees.Include(e => e.Roles).ThenInclude(r => r.Role).ToListAsync();
         }
 
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee emp)
