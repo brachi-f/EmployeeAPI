@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Employees.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace Employees.Core.Repositories
 {
     public interface IEmployeeRepository
     {
-
+        Task<IEnumerable<Employee>> GetEmployeesAsync();
+        Task<Employee> GetEmployeeByIdAsync(int id);
+        Task<Employee> AddEmployeeAsync(Employee emp);
+        Task<Employee> UpdateEmployeeAsync(int id, Employee emp);
+        Task<Employee> ChangeStatusAsync(int id);
     }
 }
