@@ -9,7 +9,7 @@ namespace Employees.Core.Models
     public class EmpRole
     {
         public int Id { get; set; }
-        public int EmpId { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
