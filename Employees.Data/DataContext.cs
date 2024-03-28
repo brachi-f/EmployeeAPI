@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace Employees.Data
 {
-    public class DataContext
+    public class DataContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<EmpRole> EmpRoles { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=employees_db");
+        }
+
     }
 }
