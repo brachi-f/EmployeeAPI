@@ -21,7 +21,7 @@ namespace Employees.Service
             return await _employeeRepository.AddEmployeeAsync(emp);
         }
 
-        public Task<Employee> ChangeStatusAsync(int id)
+        public async Task<Employee> ChangeStatusAsync(int id)
         {
             return await _employeeRepository.ChangeStatusAsync(id);
         }
