@@ -1,5 +1,6 @@
 ﻿using Employees.Core.Models;
 using Employees.Core.Services;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,9 +30,15 @@ namespace Employees.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> Get(int id)
         {
-            var emp = await _employeeService.GetEmployeeByIdAsync(id);
-            if (emp is null)
+            Employee emp;
+            try
+            {
+                emp = await _employeeService.GetEmployeeByIdAsync(id);
+            }
+            catch
+            {
                 return NotFound();
+            }
             return Ok(emp);
         }
 
