@@ -21,6 +21,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

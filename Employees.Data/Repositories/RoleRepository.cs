@@ -1,5 +1,6 @@
 ﻿using Employees.Core.Models;
 using Employees.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,45 @@ namespace Employees.Data.Repositories
 {
     public class RoleRepository : IRoleRepository
     {
-        public Task<Role> AddRole(string name)
+        private readonly DataContext _dataContext;
+        public RoleRepository(DataContext dataContext)
         {
-            throw new NotImplementedException();
+            _dataContext = dataContext;
+        }
+        public async Task<Role> AddRole(string name)
+        {
+            var r = new Role() { Id = 0, Name = name };
+            await _dataContext.Roles.AddAsync(r);
+            await _dataContext.SaveChangesAsync();
+            return r;
         }
 
-        public Task DeleteRole(int id)
+        public async Task DeleteRole(int id)
         {
-            throw new NotImplementedException();
+            var role = await _dataContext.Roles.FindAsync(id);
+            _dataContext.Roles.Remove(role);
+            await _dataContext.SaveChangesAsync();
         }
 
-        public Task<Role> GetRole(int id)
+        public async Task<Role> GetRole(int id)
         {
-            throw new NotImplementedException();
+            var role = await _dataContext.Roles.FindAsync(id);
+            return role;
         }
 
-        public Task<IEnumerable<Role>> GetRoles()
+        public async Task<IEnumerable<Role>> GetRoles()
         {
-            throw new NotImplementedException();
+            var list = await _dataContext.Roles.ToListAsync();
+            return list;
         }
 
-        public Task<Role> UpdateRole(int id, string name)
+        public async Task<Role> UpdateRole(int id, string name)
         {
-            throw new NotImplementedException();
+            var role = await _dataContext.Roles.FindAsync(id);
+            role.Name = name;
+            _dataContext.Roles.Update(role);
+            await _dataContext.SaveChangesAsync();
+            return role;
         }
     }
 }
