@@ -1,4 +1,5 @@
-﻿using Employees.Core.Models;
+﻿using Employees.Api.Models;
+using Employees.Core.Models;
 using Employees.Core.Services;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,7 @@ namespace Employees.Api.Controllers
 
         // POST api/<EmployeeController>
         [HttpPost]
-        public async Task<ActionResult<Employee>> Post([FromBody] Employee employee)
+        public async Task<ActionResult<Employee>> Post([FromBody] EmployeePostModel employee)
         {
             var emp = _employeeService.GetEmployeesAsync().Result
                 .FirstOrDefault(e => e.Identity == employee.Identity);
