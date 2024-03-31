@@ -1,6 +1,6 @@
 ﻿using Employees.Core.Models;
 
-namespace Employees.Api.Models
+namespace Employees.Core.Models
 {
     public class EmployeePostModel
     {

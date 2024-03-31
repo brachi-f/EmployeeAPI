@@ -14,5 +14,10 @@ namespace Employees.Core.Repositories
         Task<Employee> AddEmployeeAsync(Employee emp);
         Task<Employee> UpdateEmployeeAsync(int id, Employee emp);
         Task<Employee> ChangeStatusAsync(int id);
+        Task<IEnumerable<EmpRole>> GetRolesAsync();
+        Task<EmpRole> GetRoleByIdAsync(int id);
+        Task<EmpRole> AddRoleAsync(EmpRole role);
+        Task<EmpRole> UpdateRoleAsync(int id, EmpRole role);
+        Task DeleteRoleAsync(int id);
     }
 }
