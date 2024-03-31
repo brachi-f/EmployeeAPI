@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Employees.Api.Models;
 using Employees.Core.DTOs;
 using Employees.Core.Models;
 using Employees.Core.Services;
@@ -77,9 +76,61 @@ namespace Employees.Api.Controllers
             var update = await _employeeService.ChangeStatusAsync(id);
             return Ok(_mapper.Map<EmployeeDTO>(update));
         }
-
-
-
+        [HttpGet("{id}/role")]
+        public async Task<ActionResult<IEnumerable<EmpRoleDTO>>> GetRoles(int id)
+        {
+            var emp = await _employeeService.GetEmployeeByIdAsync(id);
+            if (emp is null)
+                return NotFound();
+            var roles = await _employeeService.GetRolesAsync(id);
+            var rolesDTO = _mapper.Map<IEnumerable<EmpRoleDTO>>(roles);
+            return Ok(rolesDTO);
+        }
+        [HttpGet("role/{id}")]
+        public async Task<ActionResult<EmpRoleDTO>> GetRole(int id)
+        {
+            var role = await _employeeService.GetRoleByIdAsync(id);
+            if (role is null)
+                return NotFound();
+            var roleDTO = _mapper.Map<EmpRoleDTO>(role);
+            return Ok(roleDTO);
+        }
+        [HttpPost("role")]
+        public async Task<ActionResult<EmpRoleDTO>> PostRole(EmpRolePostModel roleToAdd)
+        {
+            var emp = await _employeeService.GetEmployeeByIdAsync(roleToAdd.EmployeeId);
+            if (emp is null)
+                return NotFound("Employee Id is invalid");
+            var roles = await _employeeService.GetRolesAsync(emp.Id);
+            if (roles.Any(r => r.Id == roleToAdd.RoleId))
+                return Conflict();
+            var role = _mapper.Map<EmpRole>(roleToAdd);
+            var added = await _employeeService.AddRoleAsync(role);
+            var roleDTO = _mapper.Map<EmpRoleDTO>(added);
+            return Ok(roleDTO);
+        }
+        [HttpPut("role/{id}")]
+        public async Task<ActionResult<EmpRoleDTO>> PutRole(int id, EmpRolePostModel roleToUpdate)
+        {
+            var role = await _employeeService.GetRoleByIdAsync(id);
+            if (role is null)
+                return NotFound();
+            var emp = await _employeeService.GetEmployeeByIdAsync(roleToUpdate.EmployeeId);
+            if (emp is null)
+                return NotFound("Employee Id is invalid");
+            _mapper.Map(roleToUpdate, role);
+            var update = await _employeeService.UpdateRoleAsync(id, role);
+            var roleDTO = _mapper.Map<EmpRoleDTO>(update);
+            return Ok(roleDTO);
+        }
+        [HttpDelete("role/{id}")]
+        public async Task<ActionResult> DeleteRole(int id)
+        {
+            var role = await _employeeService.GetRoleByIdAsync(id);
+            if (role is null) return NotFound();
+            await _employeeService.DeleteRoleAsync(id);
+            return Ok();
+        }
 
     }
 }
