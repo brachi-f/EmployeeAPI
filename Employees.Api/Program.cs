@@ -4,6 +4,7 @@ using Employees.Data;
 using Employees.Service;
 using Employees.Data.Repositories;
 using System.Text.Json.Serialization;
+using Employees.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddAutoMapper(typeof(Mapping));
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
