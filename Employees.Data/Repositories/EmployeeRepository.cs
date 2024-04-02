@@ -72,19 +72,36 @@ namespace Employees.Data.Repositories
         public async Task<Employee> UpdateEmployeeAsync(int id, Employee emp)
         {
             var employee = await _dataContext.Employees.FindAsync(id);
-            _mapper.Map(emp, employee);
-            _dataContext.Employees.Update(employee);
-            await _dataContext.SaveChangesAsync();
-            return employee;
+            if (employee is not null)
+            {
+                employee.FirstName = emp.FirstName;
+                employee.FamilyName = emp.FamilyName;
+                employee.DateOfBirth = emp.DateOfBirth;
+                employee.DateStart = emp.DateStart;
+                employee.Identity = emp.Identity;
+                employee.gender = emp.gender;
+                employee.Status = emp.Status;
+                _dataContext.Employees.Update(employee);
+                await _dataContext.SaveChangesAsync();
+                return employee;
+            }
+            return null;
         }
 
         public async Task<EmpRole> UpdateRoleAsync(int id, EmpRole role)
         {
             var oldRole = await _dataContext.EmpRoles.FindAsync(id);
-            _mapper.Map(role, oldRole);
-            _dataContext.EmpRoles.Update(oldRole);
-            await _dataContext.SaveChangesAsync();
-            return oldRole;
+            if (oldRole is not null)
+            {
+                oldRole.EmployeeId = role.EmployeeId;
+                oldRole.RoleId = role.RoleId;
+                oldRole.Management = role.Management;
+                oldRole.DateStart = role.DateStart;
+                _dataContext.EmpRoles.Update(oldRole);
+                await _dataContext.SaveChangesAsync();
+                return oldRole;
+            }
+            return null;
         }
     }
 }

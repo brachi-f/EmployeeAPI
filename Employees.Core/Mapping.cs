@@ -13,6 +13,7 @@ namespace Employees.Core
     {
         public Mapping()
         {
+            CreateMap<Employee, Employee>();
             CreateMap<EmployeeDTO, Employee>().ReverseMap();
             CreateMap<EmpRoleDTO, EmpRole>().ReverseMap();
             CreateMap<EmployeePostModel, Employee>().ReverseMap();
